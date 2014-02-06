@@ -55,7 +55,7 @@ sub search {
 		}
 	}
 	print "No occurence of '$ARGV[2]'' was found in '$fname'.\n" if $found == 0;
-	close <fhandle>;
+	close $fhandle;
 }
 
 sub replace {
