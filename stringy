@@ -6,64 +6,64 @@ use strict;
 my $argc = $#ARGV+1;
 
 if ($argc == 0) {
-	show_missing();
+    show_missing();
 } elsif ($argc <= 2) {
-	show_missing();
+    show_missing();
 } elsif ($argc == 3) {
-	if (($ARGV[0] eq '-s') or ($ARGV[0] eq '--search')) {
-		search($ARGV[1], $ARGV[2]);
-	} else {
-		show_missing();
-	}
+    if (($ARGV[0] eq '-s') or ($ARGV[0] eq '--search')) {
+        search($ARGV[1], $ARGV[2]);
+    } else {
+        show_missing();
+    }
 } elsif ($argc == 4) {
-	if (($ARGV[0] eq '-r') or ($ARGV[0] eq '--replace')) {
-		replace($ARGV[1]);
-	} else {
-		show_missing();
-	}
+    if (($ARGV[0] eq '-r') or ($ARGV[0] eq '--replace')) {
+        replace($ARGV[1]);
+    } else {
+        show_missing();
+    }
 }
 
 sub show_help {
-	print "Usage: stringy (OPTION) [FILE] [ITEMS]\n"
-		. "Perform simple operations on a given file.\n"
-		. "\n"
-		. "-h, --help\t" . "Display this help and exit.\n"
-		. "-s, --search\t" . "Searches the second argument for the first.\n"
-		. "-r, --replace\t" . "Replace the first argument with the second, inside the given third argument.\n"
-		. "-rm, --remove\t" . "Remove any instances of the first argument in the given second.\n"
+    print "Usage: stringy (OPTION) [FILE] [ITEMS]\n"
+        . "Perform simple operations on a given file.\n"
+        . "\n"
+        . "-h, --help\t" . "Display this help and exit.\n"
+        . "-s, --search\t" . "Searches the second argument for the first.\n"
+        . "-r, --replace\t" . "Replace the first argument with the second, inside the given third argument.\n"
+        . "-rm, --remove\t" . "Remove any instances of the first argument in the given second.\n"
 }
 
 sub show_missing {
-	print "stringy: missing operand(s)\n"
-		. "Try 'stringy --help' for more information.\n";
+    print "stringy: missing operand(s)\n"
+        . "Try 'stringy --help' for more information.\n";
 }
 
 sub search {
-	my $fname = shift;
+    my $fname = shift;
     my $item = shift;
 
-	my $line_count = 0;
-	my $found = 0;
-	my $col_count;
+    my $line_count = 0;
+    my $found = 0;
+    my $col_count;
 
-	open (my $fhandle, '<', $fname) or die "Could not open '$fname' for read: $!";
+    open (my $fhandle, '<', $fname) or die "Could not open '$fname' for read: $!";
 
-	for (<$fhandle>) {
-		$line_count++;
-		unless (($col_count = index($_, $item)) == -1) {
-			$col_count++; # increment line count to substitute for 0 position indexing
-			print "'$item' found at line $line_count, column $col_count.\n";
-			$found = 1;
-		}
-	}
-	print "No occurence of '$item' was found in '$fname'.\n" if $found == 0;
-	close $fhandle;
+    for (<$fhandle>) {
+        $line_count++;
+        unless (($col_count = index($_, $item)) == -1) {
+            $col_count++; # increment line count to substitute for 0 position indexing
+            print "'$item' found at line $line_count, column $col_count.\n";
+            $found = 1;
+        }
+    }
+    print "No occurence of '$item' was found in '$fname'.\n" if $found == 0;
+    close $fhandle;
 }
 
 sub replace {
-	# body...
+    # body...
 }
 
 sub remove {
-	# body...
+    # body...
 }
