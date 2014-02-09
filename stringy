@@ -24,7 +24,7 @@ if ($argc == 0) {
 }
 
 sub show_help {
-	print "Usage: stringy (OPTION) [FILE]\n"
+	print "Usage: stringy (OPTION) [FILE] [ITEMS]\n"
 		. "Perform simple operations on a given file.\n"
 		. "\n"
 		. "-h, --help\t" . "Display this help and exit.\n"
