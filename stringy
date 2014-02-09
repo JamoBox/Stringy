@@ -11,7 +11,7 @@ if ($argc == 0) {
 	show_missing();
 } elsif ($argc == 3) {
 	if (($ARGV[0] eq '-s') or ($ARGV[0] eq '--search')) {
-		search($ARGV[1]);
+		search($ARGV[1], $ARGV[2]);
 	} else {
 		show_missing();
 	}
@@ -40,6 +40,8 @@ sub show_missing {
 
 sub search {
 	my $fname = shift;
+    my $item = shift;
+
 	my $line_count = 0;
 	my $found = 0;
 	my $col_count;
@@ -48,13 +50,13 @@ sub search {
 
 	for (<$fhandle>) {
 		$line_count++;
-		unless (($col_count = index($_, $ARGV[2])) == -1) {
+		unless (($col_count = index($_, $item)) == -1) {
 			$col_count++; # increment line count to substitute for 0 position indexing
-			print "'$ARGV[2]' found at line $line_count, column $col_count.\n";
+			print "'$item' found at line $line_count, column $col_count.\n";
 			$found = 1;
 		}
 	}
-	print "No occurence of '$ARGV[2]'' was found in '$fname'.\n" if $found == 0;
+	print "No occurence of '$item' was found in '$fname'.\n" if $found == 0;
 	close $fhandle;
 }
 
